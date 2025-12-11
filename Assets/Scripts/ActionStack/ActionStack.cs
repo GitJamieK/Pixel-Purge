@@ -116,21 +116,21 @@ namespace ActionStack {
             }
             
 
-            if (m_currentAction != null) {                                                     /* call OnUpdate */
-                m_currentAction.OnUpdate();                                                    /* update action */
+            if (m_currentAction != null) {                                                 /* call OnUpdate */
+                m_currentAction.OnUpdate();                                                /* update action */
 
-                if (m_actionStack.Count > 0 &&                                                 /* is action still current action? */                                       
-                    m_currentAction == m_actionStack[0]){                                      /* current action is == to first item */
+                if (m_actionStack.Count > 0 &&                                             /* is action still current action? */                                       
+                    m_currentAction == m_actionStack[0]){                                  /* current action is == to first item */
 
-                    if (m_currentAction.IsDone()) {                                            /* is action done? */
-                        m_actionStack.RemoveAt(0);                                             /* remove from stack */
-                        m_currentAction.OnEnd();                                               /* current action cleanup */
-                        m_firstTimeActions.Remove(m_currentAction);                            /* remove action from firstTimeActions */
+                    if (m_currentAction.IsDone()) {                                        /* is action done? */
+                        m_actionStack.RemoveAt(0);                                         /* remove from stack */
+                        m_currentAction.OnEnd();                                           /* current action cleanup */
+                        m_firstTimeActions.Remove(m_currentAction);                        /* remove action from firstTimeActions */
                         m_currentAction = null;
                     }
                 }
-                else {                                                                         /* if not the current action */
-                    m_currentAction = null;                                                    /* reset action to null */
+                else {                                                                     /* if not the current action */
+                    m_currentAction = null;                                                /* reset action to null */
                 }
             }
         }
