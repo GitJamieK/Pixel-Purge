@@ -7,7 +7,7 @@ namespace ActionStack {
 
         public interface IAction {
 
-            void OnBegin(bool bFirstTime); //flag to check if first time on begin or not
+            void OnBegin(bool bFirstTime);                                                  //flag to check if first time on begin or not
 
             void OnUpdate();
 
@@ -98,7 +98,7 @@ namespace ActionStack {
             if (IsEmpty) {return; }                                                        /* do we have actions? */
 
             while (m_currentAction == null &&                                              /* dont have a current action selected yet*/
-                   m_actionStack.Count > 0) {                                                    /* but we do have an action in it */
+                   m_actionStack.Count > 0) {                                              /* but we do have an action in it */
                 m_currentAction = m_actionStack[0];                                        /* grab first action from stack and set it as m_currentAction */
 
                 bool bFirstTime = !m_firstTimeActions.Contains(m_currentAction);           /* checking hashset if it contains the actions, if possitive means not first action */
