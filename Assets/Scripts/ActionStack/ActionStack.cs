@@ -69,11 +69,28 @@ namespace ActionStack {
         private HashSet<IAction>        m_firstTimeActions = new HashSet<IAction>();
         private IAction                 m_currentAction;
 
+        private static ActionStack  sm_main;
+
         #region Properties
 
         public List<IAction> Stack => m_actionStack;                                        /* see whats on the stack */
         public IAction CurrentAction => m_currentAction;                                    /* see what is current action */
         public bool IsEmpty => m_currentAction == null && m_actionStack.Count == 0;         /* see if the stack is empty, is something running on the stack? */
+
+        public static ActionStack Main
+        {
+            get
+            {
+                if (sm_main == null && Application.isPlaying)
+                {
+                    GameObject go = new GameObject("MainActionStack");
+                    DontDestroyOnLoad(go);
+                    sm_main = go.AddComponent<ActionStack>();
+                }
+
+                return sm_main;
+            }
+        }
 
         #endregion
 
@@ -134,5 +151,27 @@ namespace ActionStack {
                 }
             }
         }
-    }   
+
+        private void OnGUI()
+        {
+            if (this != sm_main){
+                return;
+            }
+
+        #if UNITY_EDITOR
+            const float LINE_HEIGHT = 32.0f;
+
+            GUI.color = new Color(0.0f, 0.0f, 0.0f, 0.7f);
+            Rect r = new Rect(0, 0, 250.0f, LINE_HEIGHT * m_actionStack.Count);
+            GUI.DrawTexture(r, Texture2D.whiteTexture);
+
+            Rect line = new Rect(10, 0, r.width - 20, LINE_HEIGHT);
+            for (int i = 0; i < m_actionStack.Count; i++) {
+                GUI.color = m_actionStack[i] == m_currentAction ? Color.green : Color.white;
+                GUI.Label(line, "#" + i + ": " + m_actionStack[i].ToString(), i == 0 ? UnityEditor.EditorStyles.boldLabel : UnityEditor.EditorStyles.label);
+                line.y += line.height;
+            }
+        #endif
+        }
+    }
 }
