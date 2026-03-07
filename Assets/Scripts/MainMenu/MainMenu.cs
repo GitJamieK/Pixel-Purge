@@ -12,7 +12,7 @@ namespace Game {
 
 
         public void OnNewGame() {
-
+            SceneManager.LoadScene("Game");
         }
 
         public void OnOptions() {
@@ -24,7 +24,11 @@ namespace Game {
         }
 
         public void OnQuit() {
-
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
         }
 
 
