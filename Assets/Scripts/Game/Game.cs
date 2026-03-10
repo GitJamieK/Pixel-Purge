@@ -7,7 +7,6 @@ namespace Game {
             ActionStack.ActionStack.Main.PushAction(this);
         }
 
-
         public override bool IsDone() {
             return false;
         }
