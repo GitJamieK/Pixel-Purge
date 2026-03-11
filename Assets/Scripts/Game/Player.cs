@@ -1,9 +1,27 @@
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+    public GameObject bulletPrefab;
+    public float shootCooldown = 1.5f;
+
+    float shootTimer;
+    Vector2 aimDirection;
+
     void Update() {
         // aim update
         LookAtMouse();
+
+        // timer
+        shootTimer -= Time.deltaTime;
+
+        // left click
+        if (Input.GetMouseButton(0) && shootTimer <= 0f) {
+            // shoot now
+            Shoot();
+
+            // reset timer
+            shootTimer = shootCooldown;
+        }
     }
 
     void LookAtMouse() {
@@ -16,15 +34,27 @@ public class Player : MonoBehaviour {
         // screen -> world
         Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        // player -> mouse
-        Vector2 direction = worldMousePosition - transform.position;
+        // aim direction
+        aimDirection = (worldMousePosition - transform.position).normalized;
 
         // direction angle
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
         // sprite offset
         angle -= 115f;
 
+        //  rotation
         transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    void Shoot() {
+        // bullet + forward offset
+        GameObject newBullet = Instantiate(bulletPrefab, transform.position + (Vector3)(aimDirection * 0.6f), Quaternion.identity);
+
+        // script
+        Bullet bulletScript = newBullet.GetComponent<Bullet>();
+
+        // direction
+        bulletScript.direction = aimDirection;
     }
 }
