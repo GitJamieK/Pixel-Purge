@@ -1,13 +1,25 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
+
     public GameObject bulletPrefab;
     public float shootCooldown = 1.5f;
+
+    public int maxHealth = 100;
+    public int currentHealth = 100;
+
+    public int level = 1;
+    public int currentXp = 0;
+    public int xpToNextLevel = 100;
+
+    public int bulletDamage = 1;
 
     float shootTimer;
     Vector2 aimDirection;
 
     void Update() {
+
         // aim update
         LookAtMouse();
 
@@ -25,6 +37,7 @@ public class Player : MonoBehaviour {
     }
 
     void LookAtMouse() {
+
         // mouse screen pos
         Vector3 mousePosition = Input.mousePosition;
 
@@ -48,13 +61,81 @@ public class Player : MonoBehaviour {
     }
 
     void Shoot() {
-        // bullet + forward offset
-        GameObject newBullet = Instantiate(bulletPrefab, transform.position + (Vector3)(aimDirection * 0.6f), Quaternion.identity);
+
+        // spawn pos
+        Vector3 spawnPosition = transform.position + (Vector3)(aimDirection * 0.5f);
+
+         // make bullet
+        GameObject newBullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
 
         // script
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
 
         // direction
         bulletScript.direction = aimDirection;
+
+        // damage
+        bulletScript.damage = bulletDamage;
+    }
+
+    public void TakeDamage(int damageAmount) {
+
+        // lose health
+        currentHealth -= damageAmount;
+
+        // temp debug log
+        Debug.Log("player took " + damageAmount + "damage");
+
+        // clamp low
+        if (currentHealth < 0) {
+            currentHealth = 0;
+        }
+
+        // dead check
+        if (currentHealth <= 0) {
+            Die();
+        }
+    }
+
+    public void GainXp(int xpAmount) {
+
+        // add xp
+        currentXp += xpAmount;
+
+        //temp debug log
+        Debug.Log("player gained " + xpAmount + "xp");
+
+        // level loop
+        while (currentXp >= xpToNextLevel) {
+            // spend xp
+            currentXp -= xpToNextLevel;
+
+            // level up
+            LevelUp();
+        }
+    }
+
+    void LevelUp() {
+        // next level
+        level += 1;
+
+        // heal
+        currentHealth = maxHealth;
+
+        // more xp needed (10%)
+        xpToNextLevel = Mathf.CeilToInt(xpToNextLevel * 1.1f);
+
+        Debug.Log("Level Up! Level: " + level);
+
+        // add upgrade screen later
+    }
+
+    void Die() {
+        Debug.Log("Player died");
+
+        // create scene later
+        // SceneManager.LoadScene("GameOver");
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
