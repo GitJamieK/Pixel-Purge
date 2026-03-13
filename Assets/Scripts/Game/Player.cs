@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
 
         // left click
         if (Input.GetMouseButton(0) && shootTimer <= 0f) {
-            // shoot now
+
             Shoot();
 
             // reset timer
