@@ -112,6 +112,9 @@ public class Player : MonoBehaviour {
 
             // level up
             LevelUp();
+
+            // stop extra levelups for now
+            break;
         }
     }
 
@@ -127,7 +130,26 @@ public class Player : MonoBehaviour {
 
         Debug.Log("Level Up! Level: " + level);
 
-        // add upgrade screen later
+        // find canvas
+        Canvas canvas = FindFirstObjectByType<Canvas>();
+
+        // safety check
+        if (canvas == null) {
+            Debug.LogError("No Canvas found for LevelUpMenu.");
+            return;
+        }
+
+        // create menu
+        Game.LevelUp levelUpMenu = Game.LevelUp.Create(canvas.transform);
+
+        // safety check
+        if (levelUpMenu == null) {
+            Debug.LogError("Could not create LevelUpMenu.");
+            return;
+        }
+
+        // push action
+        ActionStack.ActionStack.Main.PushAction(levelUpMenu);
     }
 
     void Die() {
