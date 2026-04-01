@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour {
     public Transform player;
 
     public float spawnCooldown = 2f;
-    public float spawnRadius = 8f;
+    public float spawnRadius = 10f;
 
     float spawnTimer;
 

@@ -128,6 +128,9 @@ public class Player : MonoBehaviour {
         // more xp needed (10%)
         xpToNextLevel = Mathf.CeilToInt(xpToNextLevel * 1.1f);
 
+        // enemy level up
+        Enemy.LevelUpEnemies();
+
         Debug.Log("Level Up! Level: " + level);
 
         // find canvas
