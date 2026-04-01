@@ -58,7 +58,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3261514512211241494}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -85,6 +85,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b4c77df30ddd40ebd604bae1e27fc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.LevelUp
+  btn1: {fileID: 112754775325403655}
+  btn2: {fileID: 7763937099829189700}
+  btn3: {fileID: 3752584601431609339}
+  txt1: {fileID: 6536460693122595550}
+  txt2: {fileID: 7151446625263881501}
+  txt3: {fileID: 1966513736326800672}
 --- !u!1 &3646373410460543990
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +103,7 @@ GameObject:
   - component: {fileID: 947768415996546451}
   - component: {fileID: 1966513736326800672}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text2 (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,7 +315,7 @@ GameObject:
   - component: {fileID: 9066216125286212452}
   - component: {fileID: 7151446625263881501}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text2 (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,7 +591,7 @@ GameObject:
   - component: {fileID: 387420578774037291}
   - component: {fileID: 6536460693122595550}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text1 (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
