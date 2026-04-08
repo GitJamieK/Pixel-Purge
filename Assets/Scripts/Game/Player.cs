@@ -158,9 +158,24 @@ public class Player : MonoBehaviour {
     void Die() {
         Debug.Log("Player died");
 
-        // create scene later
-        // SceneManager.LoadScene("GameOver");
+        //find canvas
+        Canvas canvas = FindFirstObjectByType<Canvas>();
 
-        SceneManager.LoadScene("MainMenu");
+        // saftey check
+        if (canvas == null) {
+            Debug.LogError("No Canvas found for DeathMenu.");
+            return;
+        }
+
+        // create
+        Game.DeathMenu deathMenu = Game.DeathMenu.Create(canvas.transform);
+
+        if (deathMenu == null) {
+            Debug.LogError("Could not create DeathMenu.");
+            return;
+        }
+
+        // push action
+        ActionStack.ActionStack.Main.PushAction(deathMenu);
     }
 }
