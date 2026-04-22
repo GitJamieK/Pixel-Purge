@@ -5,6 +5,7 @@ public class Player : MonoBehaviour {
 
     public GameObject bulletPrefab;
     public float shootCooldown = 1.5f;
+    public float shootCooldownMultiplier = 1f;
 
     public int maxHealth = 100;
     public int currentHealth = 100;
@@ -32,8 +33,14 @@ public class Player : MonoBehaviour {
             Shoot();
 
             // reset timer
-            shootTimer = shootCooldown;
+            shootTimer = GetCurrentShootCooldown();
         }
+    }
+
+    public float GetCurrentShootCooldown() {
+
+        // final cooldown
+        return shootCooldown * shootCooldownMultiplier;
     }
 
     void LookAtMouse() {
@@ -65,7 +72,7 @@ public class Player : MonoBehaviour {
         // spawn pos
         Vector3 spawnPosition = transform.position + (Vector3)(aimDirection * 0.5f);
 
-         // make bullet
+        // make bullet
         GameObject newBullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
 
         // script
