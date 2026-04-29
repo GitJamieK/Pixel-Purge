@@ -23,7 +23,8 @@ namespace Game {
             shootCooldown,
             maxHealth,
             bulletDamage,
-            heal
+            heal,
+            bulletSize
         }
 
         UpgradesType[] currentUpgrades = new UpgradesType[3];
@@ -44,7 +45,8 @@ namespace Game {
         void RollUpgrades() {
 
             for (int i = 0; i < 3; i++) {
-                currentUpgrades[i] = (UpgradesType)Random.Range(0, 4);
+                // random upgrade
+                currentUpgrades[i] = (UpgradesType)Random.Range(0, 5);
             }
 
             // update text
@@ -59,6 +61,7 @@ namespace Game {
                 case UpgradesType.maxHealth: return "+ Max health";
                 case UpgradesType.bulletDamage: return "+ Bullet Damage";
                 case UpgradesType.heal: return "Heal";
+                case UpgradesType.bulletSize: return "+ Bullet Size";
             }
             return "Upgrades";
         }
@@ -77,15 +80,21 @@ namespace Game {
                     player.maxHealth += 20;
                     player.currentHealth += 20;
                     break;
-                
+
                 case UpgradesType.bulletDamage:
                     player.bulletDamage += 1;
                     break;
 
                 case UpgradesType.heal:
                     player.currentHealth += 30;
-                    if (player.currentHealth > player.maxHealth)
+                    // max health cap
+                    if (player.currentHealth > player.maxHealth) {
                         player.currentHealth = player.maxHealth;
+                    }
+                    break;
+
+                case UpgradesType.bulletSize:
+                    player.bulletSize *= 1.2f; // bigger (20%)
                     break;
             }
 

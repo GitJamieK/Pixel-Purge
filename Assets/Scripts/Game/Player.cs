@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
     public int xpToNextLevel = 100;
 
     public int bulletDamage = 1;
+    public float bulletSize = 2f;
 
     float shootTimer;
     Vector2 aimDirection;
@@ -74,6 +75,9 @@ public class Player : MonoBehaviour {
 
         // make bullet
         GameObject newBullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+
+        // bullet size
+        newBullet.transform.localScale = Vector3.one * bulletSize;
 
         // script
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
