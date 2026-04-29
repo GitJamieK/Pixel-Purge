@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour {
     //base stats
     float baseSpeed;
     int baseHealth;
-    int baseDamageTopPlayer;
+    int baseDamageToPlayer;
 
     // gloabval scaling
     static float speedMultiplier = 1f;
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour {
         // set base stats
         baseSpeed = speed;
         baseHealth = health;
-        baseDamageTopPlayer = damageToPlayer;
+        baseDamageToPlayer = damageToPlayer;
     }
 
     void OnEnable() {
@@ -35,7 +35,8 @@ public class Enemy : MonoBehaviour {
         activeEnemies.Add(this);
     }
 
-    void onDisable() {
+    void OnDisable() {
+
         // remove enemy
         activeEnemies.Remove(this);
     }
@@ -71,23 +72,23 @@ public class Enemy : MonoBehaviour {
         health = Mathf.CeilToInt(baseHealth * healthMultiplier);
 
         //sacle damage
-        damageToPlayer = Mathf.CeilToInt(baseDamageTopPlayer * damageMultiplier);
+        damageToPlayer = Mathf.CeilToInt(baseDamageToPlayer * damageMultiplier);
 
         // scale speed
         speed = baseSpeed * speedMultiplier;
     }
 
     public static void LevelUpEnemies() {
-        // raise multipliers
+        // stronger enemies
         healthMultiplier *= 1.1f;
         damageMultiplier *= 1.1f;
         speedMultiplier *= 1.1f;
 
-        // levelup live enemies
+        // update alive enemies
         foreach (Enemy enemy in activeEnemies) {
             if (enemy != null) {
                 enemy.ApplyCurrentScaling();
-            }            
+            }
         }
 
         Debug.Log("Enemies got stronger");
@@ -99,16 +100,24 @@ public class Enemy : MonoBehaviour {
         health -= damageAmount;
 
         //deth check
-        if (health <= 0) { Die(); }
+        if (health <= 0) {
+            Die();
+        }
     }
 
     void Die() {
 
-        // player script
-        Player playerScript = player.GetComponent<Player>();
+        // safety check
+        if (player != null) {
 
-        //xp
-        playerScript.GainXp(xpValue);
+            // player script
+            Player playerScript = player.GetComponent<Player>();
+
+            // give xp
+            if (playerScript != null) {
+                playerScript.GainXp(xpValue);
+            }
+        }
 
         //destroy enemy
         Destroy(gameObject);
@@ -122,8 +131,10 @@ public class Enemy : MonoBehaviour {
             // player script
             Player playerScript = other.GetComponent<Player>();
 
-            //damage
-            playerScript.TakeDamage(damageToPlayer);
+            //damage player
+            if (playerScript != null) {
+                playerScript.TakeDamage(damageToPlayer);
+            }
 
             //destroy enemy
             Destroy(gameObject);
@@ -135,8 +146,10 @@ public class Enemy : MonoBehaviour {
             // bullet script
             Bullet bulletScript = other.GetComponent<Bullet>();
 
-            // damage
-            TakeDamage(bulletScript.damage);
+            // damage enemy
+            if (bulletScript != null) {
+                TakeDamage(bulletScript.damage);
+            }
 
             //destroy bullet
             Destroy(other.gameObject);
