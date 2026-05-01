@@ -173,3 +173,4 @@ MonoBehaviour:
   health: 1
   damageToPlayer: 10
   xpValue: 10
+  damageParticlesPrefab: {fileID: 1077743335926157147, guid: 2c53c3a7caae5fa0d9c399eec9fb07fc, type: 3}

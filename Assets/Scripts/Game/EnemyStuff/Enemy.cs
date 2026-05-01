@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour {
     public int damageToPlayer = 10;
     public int xpValue = 10;
 
+    public ParticleSystem damageParticlesPrefab;
+
     //base stats
     float baseSpeed;
     int baseHealth;
@@ -95,6 +97,8 @@ public class Enemy : MonoBehaviour {
     }
 
     public void TakeDamage(int damageAmount) {
+        //damage effect
+        SpawnDamageParticles();
 
         // lose health
         health -= damageAmount;
@@ -103,6 +107,15 @@ public class Enemy : MonoBehaviour {
         if (health <= 0) {
             Die();
         }
+    }
+
+    void SpawnDamageParticles() {
+        // saftey check
+        if (damageParticlesPrefab == null)
+            return;
+
+        //spawn particles
+        Instantiate(damageParticlesPrefab, transform.position, Quaternion.identity);
     }
 
     void Die() {
