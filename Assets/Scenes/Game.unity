@@ -847,10 +847,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
-    - target: {fileID: 3187592778019770849, guid: 25865b7381c35fc39abce48a24e7ff64, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -36.799988
-      objectReference: {fileID: 0}
     - target: {fileID: 3814525415768985986, guid: 25865b7381c35fc39abce48a24e7ff64, type: 3}
       propertyPath: m_Name
       value: BarsUI
