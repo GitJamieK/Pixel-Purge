@@ -62,7 +62,7 @@ public class Player : MonoBehaviour {
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
         // sprite offset
-        angle -= 115f;
+        angle -= 90f; //was 115f
 
         //  rotation
         transform.rotation = Quaternion.Euler(0, 0, angle);
