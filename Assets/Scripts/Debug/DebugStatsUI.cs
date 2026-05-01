@@ -8,6 +8,8 @@ public class DebugStatsUI : MonoBehaviour {
     public TextMeshProUGUI debugText;
 
     void Update() {
+        /*
+
         // Ability
         if (playerAbilities == null && player != null) {
             playerAbilities = player.GetComponent<PlayerAbilities>();
@@ -34,5 +36,7 @@ public class DebugStatsUI : MonoBehaviour {
             "BULLET DMG: " + player.bulletDamage + "\n" +
             "SHOOT CD: " + player.GetCurrentShootCooldown() + "\n" +
             abilityInfo;
+
+        */
     }
 }
